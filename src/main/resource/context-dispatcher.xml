@@ -34,17 +34,17 @@
         <property name="converters">
             <list>
                 <!-- 这里使用string to date可以将dao在jsp到controller转换的时候直接将string格式的日期转换为date类型 -->
-                <bean class="com.honzh.common.plugin.StringToDateConverter" />
+                <bean class="com.cliff.common.plugin.StringToDateConverter" />
             </list>
         </property>
     </bean>
 
-    <mvc:resources location="/assets/" mapping="/assets/**"/>
+    <!-- <mvc:resources location="/assets/" mapping="/assets/**"/>
     <mvc:resources location="/css/" mapping="/css/**"/>
     <mvc:resources location="/components/" mapping="/components/**"/>
-
+    <mvc:resources location="/WebContent/" mapping="/resources/**" /> --> 
     <!-- 以上和下面这句话等效 -->
-<!--    <mvc:default-servlet-handler/> -->
+	<mvc:default-servlet-handler/>
 
     <bean id="multipartResolver"
         class="org.springframework.web.multipart.commons.CommonsMultipartResolver" p:defaultEncoding="UTF-8">

@@ -49,7 +49,7 @@
 
         <!-- Mapper接口所在包名，Spring会自动查找其下的Mapper -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.honzh.biz.database.mapper" />
+        <property name="basePackage" value="com.cliff.matcher.mapper" />
         <property name="sqlSessionFactory" ref="sqlSessionFactory" />
     </bean>
 
@@ -61,5 +61,5 @@
     <!-- 可通过注解控制事务 -->
     <tx:annotation-driven transaction-manager="transactionManager" />
 
-    <bean id="springContextHolder" class="com.honzh.common.spring.SpringContextHolder" />
+<!--     <bean id="springContextHolder" class="com.honzh.common.spring.SpringContextHolder" /> -->
 </beans>
