@@ -46,8 +46,7 @@
     <!-- 以上和下面这句话等效 -->
 	<mvc:default-servlet-handler/>
 
-    <bean id="multipartResolver"
-        class="org.springframework.web.multipart.commons.CommonsMultipartResolver" p:defaultEncoding="UTF-8">
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" p:defaultEncoding="UTF-8">
         <property name="maxUploadSize" value="1024000000"></property>
     </bean>
 
