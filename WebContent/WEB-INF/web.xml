@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app>
+  <!-- Log4J Start -->
+<!--   <context-param> -->
+<!-- 	<param-name>log4jConfigLocation</param-name> -->
+<!-- 	<param-value>classpath:log4j.properties</param-value> -->
+<!--   </context-param> -->
+<!--   <context-param> -->
+<!-- 	<param-name>log4jRefreshInterval</param-name> -->
+<!-- 	<param-value>6000</param-value> -->
+<!--   </context-param> -->
+  <!-- Spring Log4J config -->
+<!--   <listener> -->
+<!-- 	<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class> -->
+<!--   </listener> -->
+  <!-- Log4J End -->
+	
   <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value>classpath:application-context.xml</param-value>
+    <param-value>
+    	classpath:applicationContext-datasource.xml
+    </param-value>
   </context-param>
 
   <listener>
@@ -11,7 +28,7 @@
     </listener-class>
   </listener>
 
-  <!-- set character encoding spring -->
+  <!-- Spring 编码过滤器 start -->
   <filter>
     <filter-name>characterEncodingFilter</filter-name>
     <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -29,7 +46,7 @@
     <filter-name>characterEncodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
-
+  <!-- Spring 编码过滤器 End -->
 
   <!-- <servlet-mapping>
      <servlet-name>default</servlet-name>
@@ -48,20 +65,21 @@
     <url-pattern>*.js</url-pattern>
   </servlet-mapping> -->
   <servlet>
-    <servlet-name>web-app</servlet-name>
+    <servlet-name>spring</servlet-name>
     <servlet-class>
         org.springframework.web.servlet.DispatcherServlet
     </servlet-class>
+    <!-- 不加这段配置的话,默认去WEB-INF下面找[servlet-name]-servlet文件 -->
     <init-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:context-dispatcher.xml</param-value>
+        <param-value>classpath:spring-servlet.xml</param-value>
     </init-param>
     <!-- 使系统在启动时装在servlet而不是第一个servlet被访问 -->
     <load-on-startup>1</load-on-startup>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>web-app</servlet-name>
+    <servlet-name>spring</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
   

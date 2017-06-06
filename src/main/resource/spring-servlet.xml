@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans default-lazy-init="true"
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans   
+       					http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+       					http://www.springframework.org/schema/mvc   
+						http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd   
+						http://www.springframework.org/schema/context  
+						http://www.springframework.org/schema/context/spring-context-3.0.xsd
+						http://www.springframework.org/schema/aop
+						http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+       <!-- 视图解析器 -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+        <!-- 将jsp页面放置在web-info中可以保护这些页面不被浏览器直接访问 -->
+        <property name="prefix" value="/WEB-INF/jsp/" />
+        <property name="suffix" value=".jsp"></property>
+    </bean>
+
+    <!-- 扫描web包，应用Spring的注解 @Controller -->
+    <!-- 具体的包可以使spring在加载时不扫描没有必要的包 -->
+    <context:component-scan base-package="com.cliff.controller" />
+    <!-- 扫描业务层service实现类 -->
+    <context:component-scan base-package="com.cliff.matcher.service" />
+	<!-- 启用mvc注解,同时指定conversion-service -->
+    <mvc:annotation-driven conversion-service="conversionService" />
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="converters">
+            <list>
+                <!-- 这里使用string to date可以将dao在jsp到controller转换的时候直接将string格式的日期转换为date类型 -->
+                <bean class="com.cliff.common.plugin.StringToDateConverter" />
+            </list>
+        </property>
+    </bean>
+	<!-- 静态资源文件，不会被Spring MVC拦截 -->
+    <!-- <mvc:resources location="/assets/" mapping="/assets/**"/>
+    <mvc:resources location="/css/" mapping="/css/**"/>
+    <mvc:resources location="/components/" mapping="/components/**"/>
+    <mvc:resources location="/WebContent/" mapping="/resources/**" /> --> 
+    <!-- 以上和下面这句话等效 -->
+	<mvc:default-servlet-handler/>
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" p:defaultEncoding="UTF-8">
+        <property name="maxUploadSize" value="1024000000"></property>
+    </bean>
+
+</beans>  
